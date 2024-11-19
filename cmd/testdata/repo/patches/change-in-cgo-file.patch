@@ -1,0 +1,7 @@
+diff --git a/cmd/testdata/repo/internal/sql/driver.c b/internal/changed/testdata/repo/internal/sql/driver.c
+index 9a29ef7..bb52235 100644
+--- a/cmd/testdata/repo/internal/sql/driver.c
++++ b/cmd/testdata/repo/internal/sql/driver.c
+@@ -1 +1,2 @@
+ static int do_something_with_db() {}
++// change to C file included with CGO

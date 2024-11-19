@@ -1,0 +1,9 @@
+diff --git a/cmd/testdata/repo/internal/sql/migration.sql b/internal/changed/testdata/repo/internal/sql/migration.sql
+index 0b6ef03..dd7d58e 100644
+--- a/cmd/testdata/repo/internal/sql/migration.sql
++++ b/cmd/testdata/repo/internal/sql/migration.sql
+@@ -4,3 +4,4 @@ CREATE TABLE users (
+     id TEXT NO NULL PRIMARY KEY,
+     email TEXT NOT NULL UNIQUE,
+ )
++-- change in embedded file

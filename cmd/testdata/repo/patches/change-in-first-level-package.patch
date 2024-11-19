@@ -1,0 +1,10 @@
+diff --git a/cmd/testdata/repo/internal/consumer/consumer.go b/internal/changed/testdata/repo/internal/consumer/consumer.go
+index 8bc44e3..778e4d9 100644
+--- a/cmd/testdata/repo/internal/consumer/consumer.go
++++ b/cmd/testdata/repo/internal/consumer/consumer.go
+@@ -5,3 +5,5 @@
+
+ 	_ "example.com/test-repo/internal/utils"
+ )
++
++// change in package that top-level package directly depends on

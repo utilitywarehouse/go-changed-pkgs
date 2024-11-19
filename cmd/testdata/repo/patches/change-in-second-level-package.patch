@@ -1,0 +1,10 @@
+diff --git a/cmd/testdata/repo/internal/utils/files.go b/internal/changed/testdata/repo/internal/utils/files.go
+index 1b03701..e407e54 100644
+--- a/cmd/testdata/repo/internal/utils/files.go
++++ b/cmd/testdata/repo/internal/utils/files.go
+@@ -3,3 +3,5 @@
+ import (
+ 	_ "golang.org/x/time/rate"
+ )
++
++// change in package that top-level package indirectly depends on

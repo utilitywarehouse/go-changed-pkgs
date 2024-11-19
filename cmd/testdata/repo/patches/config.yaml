@@ -1,0 +1,35 @@
+# name of patch file->list of relative package names expected to be considered changed
+# when the patch is applied
+
+# Basic .go file changed
+change-in-top-level-package.patch:
+  - "" # "" is the top-level package
+change-in-first-level-package.patch:
+   - /internal/consumer
+   - ""
+change-in-second-level-package.patch:
+  - /internal/utils
+  - /internal/consumer
+  - ""
+
+# non-Go package file changes
+change-in-embedded-file.patch:
+  - /internal/sql
+  - /cmd/db
+change-in-cgo-file.patch:
+  - /internal/sql
+  - /cmd/db
+
+# dependency changes
+upgrade-top-level-dependency.patch:
+  - ""
+upgrade-first-level-dependency.patch:
+  - /internal/consumer
+  - ""
+upgrade-second-level-dependency.patch:
+  - /internal/utils
+  - /internal/consumer
+  - ""
+
+# change in files not related to any Go package
+change-in-unrelated-file.patch: []

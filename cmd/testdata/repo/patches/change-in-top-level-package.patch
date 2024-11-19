@@ -1,0 +1,11 @@
+diff --git a/cmd/testdata/repo/main.go b/internal/changed/testdata/repo/main.go
+index fde9bb7..6a53b8e 100644
+--- a/cmd/testdata/repo/main.go
++++ b/cmd/testdata/repo/main.go
+@@ -6,4 +6,6 @@
+ 	_ "example.com/test-repo/internal/consumer"
+ )
+
++// change in top-level package
++
+ func main() {}

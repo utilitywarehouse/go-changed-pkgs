@@ -1,0 +1,10 @@
+diff --git a/cmd/testdata/repo/go.mod b/internal/changed/testdata/repo/go.mod
+index cfb28e0..5b1ac82 100644
+--- a/cmd/testdata/repo/go.mod
++++ b/cmd/testdata/repo/go.mod
+@@ -1,4 +1,4 @@
+-THIS IS AN UNPARSEABLE LINE!!!
++//THIS IS AN UNPARSEABLE LINE!!!
+ module example.com/test-repo
+
+ go 1.21.0
