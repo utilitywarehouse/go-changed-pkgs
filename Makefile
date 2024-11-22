@@ -21,4 +21,4 @@ check-coverage: go-cov.out
 build:
 	# --skip=validate to allow for dirty Git state during dev
 	# --single-target to only build for the current OS/Arch
-	@go run github.com/goreleaser/goreleaser build --single-target --skip=validate --clean
+	@go run github.com/goreleaser/goreleaser/v2 build --single-target --skip=validate --clean
