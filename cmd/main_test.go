@@ -103,9 +103,9 @@ func runWithPatches(t *testing.T, worktreePath string, patchNames []string, buf 
 		worktreePath,
 		"--mod-dir",
 		modDir,
-		"--from-sha",
+		"--from-ref",
 		prePatchHead,
-		"--to-sha",
+		"--to-ref",
 		postPatchHead,
 	)
 	app := buildTestApp(buf)
@@ -161,9 +161,9 @@ func TestToShaNotHead(t *testing.T) {
 		worktreePath,
 		"--mod-dir",
 		modDir,
-		"--from-sha",
+		"--from-ref",
 		prePatchHead,
-		"--to-sha",
+		"--to-ref",
 		postPatchHead,
 	)
 	app := buildTestApp(&buf)
@@ -195,9 +195,9 @@ func TestRelativeRepoAndModDirs(t *testing.T) {
 		worktreePath,
 		"--mod-dir",
 		modDir,
-		"--from-sha",
+		"--from-ref",
 		prePatchHead,
-		"--to-sha",
+		"--to-ref",
 		postPatchHead,
 	)
 	app := buildTestApp(&buf)
@@ -264,9 +264,9 @@ func TestErrorsWhenFailsToReadPackages(t *testing.T) {
 		progArgs,
 		"--mod-dir",
 		modDir,
-		"--from-sha",
+		"--from-ref",
 		"",
-		"--to-sha",
+		"--to-ref",
 		"",
 	)
 	app := buildTestApp(io.Discard)
@@ -285,9 +285,9 @@ func TestErrorsWhenFailstoListingChangedFiles(t *testing.T) {
 		progArgs,
 		"--repo-dir",
 		repoDir,
-		"--from-sha",
+		"--from-ref",
 		"",
-		"--to-sha",
+		"--to-ref",
 		"",
 	)
 	app := buildTestApp(io.Discard)

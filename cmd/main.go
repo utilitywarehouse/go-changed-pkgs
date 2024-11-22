@@ -54,8 +54,8 @@ func buildApp(out io.Writer) *cli.App {
 	var (
 		repoDir string
 		modDir  string
-		fromSHA string
-		toSHA   string
+		fromRef string
+		toRef   string
 	)
 
 	return &cli.App{
@@ -63,13 +63,13 @@ func buildApp(out io.Writer) *cli.App {
 		Usage: "Get the changed Go packages between two commits",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:        "from-sha",
-				Destination: &fromSHA,
+				Name:        "from-ref",
+				Destination: &fromRef,
 				Required:    true,
 			},
 			&cli.StringFlag{
-				Name:        "to-sha",
-				Destination: &toSHA,
+				Name:        "to-ref",
+				Destination: &toRef,
 				Required:    true,
 			},
 			&cli.StringFlag{
@@ -95,7 +95,7 @@ func buildApp(out io.Writer) *cli.App {
 				),
 			)
 			ctx := slogctx.WithLogger(cCtx.Context, logger)
-			return printChangedPackages(ctx, out, repoDir, modDir, fromSHA, toSHA)
+			return printChangedPackages(ctx, out, repoDir, modDir, fromRef, toRef)
 		},
 	}
 }
@@ -105,15 +105,15 @@ func printChangedPackages(
 	out io.Writer,
 	repoDir string,
 	modDir string,
-	fromSHA string,
-	toSHA string,
+	fromRef string,
+	toRef string,
 ) error {
 	packages, err := getChangedPackages(
 		ctx,
 		repoDir,
 		modDir,
-		fromSHA,
-		toSHA,
+		fromRef,
+		toRef,
 	)
 	if err != nil {
 		return fmt.Errorf("getting changed packages: %w", err)
@@ -125,7 +125,7 @@ func printChangedPackages(
 	return nil
 }
 
-// get packages that are changed between `fromSHA` and `toSHA`, where 'changed'
+// get packages that are changed between `fromRef` and `toRef`, where 'changed'
 // means:
 //
 //   - The package contains a file that was changed between the two SHAs
@@ -135,8 +135,8 @@ func getChangedPackages(
 	ctx context.Context,
 	repoDir string,
 	modDir string,
-	fromSHA string,
-	toSHA string,
+	fromRef string,
+	toRef string,
 ) ([]string, error) {
 	pkgs, err := loadLocalPackages(ctx, modDir)
 	if err != nil {
@@ -150,7 +150,7 @@ func getChangedPackages(
 		return nil, fmt.Errorf("failed building absolute path for %s: %w", repoDir, err)
 	}
 
-	changedFiles, err := getChangedFiles(ctx, repoDir, fromSHA, toSHA)
+	changedFiles, err := getChangedFiles(ctx, repoDir, fromRef, toRef)
 	if err != nil {
 		return nil, err
 	}
@@ -161,8 +161,8 @@ func getChangedPackages(
 		changedFiles,
 		pkgs,
 		repoDir,
-		fromSHA,
-		toSHA,
+		fromRef,
+		toRef,
 	)
 	if err != nil {
 		return nil, err
@@ -217,10 +217,10 @@ func loadLocalPackages(ctx context.Context, modDir string) ([]*packages.Package,
 func getChangedFiles(
 	ctx context.Context,
 	repoDir string,
-	fromSHA string,
-	toSHA string,
+	fromRef string,
+	toRef string,
 ) ([]string, error) {
-	out, err := runGitCmd(ctx, "-C", repoDir, "diff", "--name-only", "-z", fromSHA, toSHA)
+	out, err := runGitCmd(ctx, "-C", repoDir, "diff", "--name-only", "-z", fromRef, toRef)
 	if err != nil {
 		return nil, fmt.Errorf("listing changed files: %w", err)
 	}
@@ -234,8 +234,8 @@ func collectChanges(
 	changedFiles []string,
 	pkgs []*packages.Package,
 	repoDir string,
-	fromSHA string,
-	toSHA string,
+	fromRef string,
+	toRef string,
 ) (map[string]struct{}, map[string]struct{}, error) {
 	changedPackages := map[string]struct{}{}
 	changedMods := map[string]struct{}{}
@@ -243,7 +243,7 @@ func collectChanges(
 
 	for _, path := range changedFiles {
 		if filepath.Base(path) == "go.mod" {
-			changedMods, err = getChangedMods(ctx, path, repoDir, fromSHA, toSHA)
+			changedMods, err = getChangedMods(ctx, path, repoDir, fromRef, toRef)
 			if err != nil {
 				return nil, nil, err
 			}
@@ -273,10 +273,10 @@ func getChangedMods(
 	ctx context.Context,
 	modPath string,
 	repoDir string,
-	fromSHA string,
-	toSHA string,
+	fromRef string,
+	toRef string,
 ) (map[string]struct{}, error) {
-	curModFile, oldModFile, err := readModFiles(ctx, repoDir, modPath, fromSHA, toSHA)
+	curModFile, oldModFile, err := readModFiles(ctx, repoDir, modPath, fromRef, toRef)
 	if err != nil {
 		return nil, err
 	}
@@ -305,14 +305,14 @@ func readModFiles(
 	ctx context.Context,
 	repoDir string,
 	modPath string,
-	fromSHA string,
-	toSHA string,
+	fromRef string,
+	toRef string,
 ) (*modfile.File, *modfile.File, error) {
-	oldModFile, err := readModFileAtRef(ctx, repoDir, modPath, fromSHA)
+	oldModFile, err := readModFileAtRef(ctx, repoDir, modPath, fromRef)
 	if err != nil {
 		return nil, nil, err
 	}
-	newModFile, err := readModFileAtRef(ctx, repoDir, modPath, toSHA)
+	newModFile, err := readModFileAtRef(ctx, repoDir, modPath, toRef)
 	if err != nil {
 		return nil, nil, err
 	}
