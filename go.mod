@@ -5,13 +5,13 @@ go 1.23.0
 require (
 	github.com/goreleaser/goreleaser/v2 v2.4.8
 	github.com/stretchr/testify v1.10.0
-	github.com/urfave/cli/v2 v2.27.5
-	gitlab.com/matthewhughes/go-cov v0.4.0
+	github.com/urfave/cli/v2 v2.27.6
+	gitlab.com/matthewhughes/go-cov v0.5.0
 	gitlab.com/matthewhughes/signalctx v0.1.0
 	gitlab.com/matthewhughes/slogctx v0.2.0
 	golang.org/x/exp v0.0.0-20241108190413-2d47ceb2692f
-	golang.org/x/mod v0.22.0
-	golang.org/x/tools v0.28.0
+	golang.org/x/mod v0.23.0
+	golang.org/x/tools v0.30.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -28,6 +28,7 @@ require (
 	cloud.google.com/go/storage v1.45.0 // indirect
 	code.gitea.io/sdk/gitea v0.19.0 // indirect
 	dario.cat/mergo v1.0.1 // indirect
+	dmitri.shuralyov.com/go/generated v0.0.0-20230423232055-e1de01541153 // indirect
 	github.com/AlekSi/pointer v1.2.0 // indirect
 	github.com/Azure/azure-sdk-for-go v68.0.0+incompatible // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.14.0 // indirect
@@ -109,7 +110,7 @@ require (
 	github.com/cloudflare/circl v1.3.8 // indirect
 	github.com/cncf/xds/go v0.0.0-20240905190251-b4127c9b8d78 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.5 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
 	github.com/cyberphone/json-canonicalization v0.0.0-20231011164504-785e29786b46 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.5 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
